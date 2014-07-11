@@ -11,7 +11,7 @@ class Jugador {
 	@Property String nombre	
 	@Property Double calificacion
 	@Property List<Double> puntajes
-	CriterioInscripcion criterioInscripcion
+	@Property CriterioInscripcion criterioInscripcion
 	
 	new() {
 		this.puntajes = new ArrayList<Double>
@@ -31,17 +31,17 @@ class Jugador {
 		criterioInscripcion = new ModoSolidario
 	}
 	
-	def boolean dejaLugarAOtro() {
+	/*def boolean dejaLugarAOtro() {
 		if (criterioInscripcion.class.equals(typeof(ModoSolidario))) {
 			return true
 		} else {
 			return false
 		}
-	}
+	}*/
 
 	override toString() {
 		//"Jugador (" + calificacion + ") - modo " + criterioInscripcion.toString()
 		nombre
 	}	
-}
 
+}

@@ -1,5 +1,9 @@
 package ar.edu.futbol5.inscripcion
 
-interface CriterioInscripcion {
-	
+abstract class CriterioInscripcion {
+
+	def boolean dejaLugarAOtro() {
+	return false
+	}	
+
 }

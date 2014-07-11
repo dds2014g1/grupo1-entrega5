@@ -1,36 +1,43 @@
 package ar.edu.futbol5
 
-import ar.edu.futbol5.excepciones.BusinessException
 import ar.edu.futbol5.ordenamiento.CriterioOrdenamiento
 import ar.edu.futbol5.ordenamiento.OrdenamientoPorHandicap
 import java.util.ArrayList
 import java.util.List
+import ar.edu.futbol5.estado.Estado
+import ar.edu.futbol5.estado.EstadoAbierto
+import ar.edu.futbol5.estado.EstadoEquiposGenerados
+import ar.edu.futbol5.estado.EstadoCerrado
 
 class Partido {
 
 	@Property List<Jugador> inscriptos
 	@Property Equipo equipo1
 	@Property Equipo equipo2
-	String estado
+	@Property Estado estado
+	//String estado
 	@Property CriterioOrdenamiento criterioOrdenamiento
 	@Property int distribucionEquipos // 5 es par/impar, 16 = 1,4,5,8,9 vs. 2,3,6,7,10
 
 	new() {
 		inscriptos = new ArrayList<Jugador>
-		estado = "A"
+		estado = new EstadoAbierto
+		//estado = "A"
 		distribucionEquipos = 5 // par/impar
 		criterioOrdenamiento = new OrdenamientoPorHandicap
 	}
 
 	def generarEquipos() {
-		if (this.validarInscripcion == -1) {
+		this.estado.validarInscripcion()
+		/*if (this.validarInscripcion == -1) {
 			throw new BusinessException("Hubo un error")
-		}
-		this.distribuirEquipos(this.ordenarEquipos)
-		estado = "G"
+		}*/
+		this.distribuirEquipos(criterioOrdenamiento.ordenar(this))
+		estado = new EstadoEquiposGenerados
+		//estado = "G"
 	}
 
-	def validarInscripcion() {
+	/*def validarInscripcion() {
 		if (inscriptos.size < 10) {
 			return -1
 		}
@@ -41,7 +48,7 @@ class Partido {
 			return -1
 		}
 		return 0
-	}
+	}*/
 
 	def distribuirEquipos(List<Jugador> jugadores) {
 		equipo1 = new Equipo
@@ -61,12 +68,16 @@ class Partido {
 		}
 	}
 
-	def List<Jugador> ordenarEquipos() {
+	/*def List<Jugador> ordenarEquipos() {
 		criterioOrdenamiento.ordenar(this)
-	}
+	}*/
 
 	def void inscribir(Jugador jugador) {
-		if (inscriptos.size < 10) {
+		estado.inscribir(jugador, this)
+		if (inscriptos.size == 10) {
+			this.cerrar()
+		}
+		/*if (inscriptos.size < 10) {
 			this.inscriptos.add(jugador)
 		} else {
 			if (this.hayAlgunJugadorQueCedaLugar()) {
@@ -75,21 +86,23 @@ class Partido {
 			} else {
 				throw new BusinessException("No hay más lugar")
 			}
-		}
+		}*/
 	}
 
 	def boolean hayAlgunJugadorQueCedaLugar() {
-		inscriptos.exists[jugador|jugador.dejaLugarAOtro]
+		return inscriptos.exists[jugador|jugador.criterioInscripcion.dejaLugarAOtro]
 	}
 
 	def Jugador jugadorQueCedeLugar() {
 		if (!hayAlgunJugadorQueCedaLugar()) {
 			return null
 		}
-		return inscriptos.filter[jugador|jugador.dejaLugarAOtro].get(0)
+		return inscriptos.filter[jugador|jugador.criterioInscripcion.dejaLugarAOtro].get(0)
 	}
 
 	def void cerrar() {
-		estado = "C"
+		estado = new EstadoCerrado
+		//estado = "C"
 	}
+	
 }

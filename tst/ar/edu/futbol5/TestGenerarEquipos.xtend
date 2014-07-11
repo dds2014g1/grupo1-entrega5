@@ -24,7 +24,7 @@ class TestGenerarEquipos {
 	Jugador eric
 	Jugador leo
 	Jugador ferme
-
+	
 	@Before
 	def void init() {
 		partidoPocosJugadores = new Partido()
@@ -89,23 +89,25 @@ class TestGenerarEquipos {
 
 	@Test
 	def void generarEquiposPorHandicap() {
+		val criterioOrdenamiento = partido1.criterioOrdenamiento
 		println("******************************************")
 		println("ordenamiento por handicap")
 		println(
-			partido1.ordenarEquipos.map [ jugador |
+			criterioOrdenamiento.ordenar(partido1).map [ jugador |
 				println("Jugador: " + jugador + " - calificacion: " + jugador.calificacion)
 			])
 		Assert.assertArrayEquals(newArrayList(ferme, roly, pato, dodi, lechu, chicho, rodri, sytek, leo, mike),
-			partido1.ordenarEquipos)
+			criterioOrdenamiento.ordenar(partido1))
 	}
 
 	@Test
 	def void generarEquiposPorCalificacionUltimos2Partidos() {
 		partido1.criterioOrdenamiento = new OrdenamientoCalificacionUltimos2Partidos
+		val criterioOrdenamiento = partido1.criterioOrdenamiento
 		println("******************************************")
 		println("ordenamiento por ultimas 2 calificaciones")
 		println(
-			partido1.ordenarEquipos.map [ jugador |
+			criterioOrdenamiento.ordenar(partido1).map [ jugador |
 				val misPuntajes = jugador.puntajes.clone.reverse.take(2).toList
 				val promedio = misPuntajes.fold(0d, [acum, puntaje|acum + puntaje]) / misPuntajes.size
 				println(
@@ -113,7 +115,7 @@ class TestGenerarEquipos {
 						" promedio: " + promedio)
 			])
 		Assert.assertArrayEquals(newArrayList(ferme, pato, lechu, roly, mike, chicho, dodi, rodri, sytek, leo),
-			partido1.ordenarEquipos)
+			criterioOrdenamiento.ordenar(partido1))
 	}
 
 	@Test
@@ -122,11 +124,12 @@ class TestGenerarEquipos {
 		ordenamientoMix.addCriterio(new OrdenamientoCalificacionUltimos2Partidos)
 		ordenamientoMix.addCriterio(new OrdenamientoPorHandicap)
 		partido1.criterioOrdenamiento = ordenamientoMix
+		val criterioOrdenamiento = partido1.criterioOrdenamiento
 		println("******************************************")
 		println("ordenamiento por mix")
-		println(partido1.ordenarEquipos)
+		println(criterioOrdenamiento.ordenar(partido1))
 		Assert.assertArrayEquals(newArrayList(ferme, pato, roly, lechu, chicho, dodi, rodri, sytek, mike, leo),
-			partido1.ordenarEquipos)
+			criterioOrdenamiento.ordenar(partido1))
 	}
 
 	@Test
