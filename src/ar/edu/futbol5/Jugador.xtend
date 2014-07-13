@@ -31,13 +31,11 @@ class Jugador {
 		criterioInscripcion = new ModoSolidario
 	}
 	
-	/*def boolean dejaLugarAOtro() {
-		if (criterioInscripcion.class.equals(typeof(ModoSolidario))) {
-			return true
-		} else {
-			return false
-		}
-	}*/
+	def boolean dejaLugarAOtro() {
+		
+		this.criterioInscripcion.leSirveElPartido
+		
+	}
 
 	override toString() {
 		//"Jugador (" + calificacion + ") - modo " + criterioInscripcion.toString()

@@ -93,11 +93,11 @@ class TestGenerarEquipos {
 		println("******************************************")
 		println("ordenamiento por handicap")
 		println(
-			criterioOrdenamiento.ordenar(partido1).map [ jugador |
+			criterioOrdenamiento.ordenar(partido1.inscriptos).map [ jugador |
 				println("Jugador: " + jugador + " - calificacion: " + jugador.calificacion)
 			])
 		Assert.assertArrayEquals(newArrayList(ferme, roly, pato, dodi, lechu, chicho, rodri, sytek, leo, mike),
-			criterioOrdenamiento.ordenar(partido1))
+			criterioOrdenamiento.ordenar(partido1.inscriptos))
 	}
 
 	@Test
@@ -107,7 +107,7 @@ class TestGenerarEquipos {
 		println("******************************************")
 		println("ordenamiento por ultimas 2 calificaciones")
 		println(
-			criterioOrdenamiento.ordenar(partido1).map [ jugador |
+			criterioOrdenamiento.ordenar(partido1.inscriptos).map [ jugador |
 				val misPuntajes = jugador.puntajes.clone.reverse.take(2).toList
 				val promedio = misPuntajes.fold(0d, [acum, puntaje|acum + puntaje]) / misPuntajes.size
 				println(
@@ -115,7 +115,7 @@ class TestGenerarEquipos {
 						" promedio: " + promedio)
 			])
 		Assert.assertArrayEquals(newArrayList(ferme, pato, lechu, roly, mike, chicho, dodi, rodri, sytek, leo),
-			criterioOrdenamiento.ordenar(partido1))
+			criterioOrdenamiento.ordenar(partido1.inscriptos))
 	}
 
 	@Test
@@ -127,9 +127,9 @@ class TestGenerarEquipos {
 		val criterioOrdenamiento = partido1.criterioOrdenamiento
 		println("******************************************")
 		println("ordenamiento por mix")
-		println(criterioOrdenamiento.ordenar(partido1))
+		println(criterioOrdenamiento.ordenar(partido1.inscriptos))
 		Assert.assertArrayEquals(newArrayList(ferme, pato, roly, lechu, chicho, dodi, rodri, sytek, mike, leo),
-			criterioOrdenamiento.ordenar(partido1))
+			criterioOrdenamiento.ordenar(partido1.inscriptos))
 	}
 
 	@Test

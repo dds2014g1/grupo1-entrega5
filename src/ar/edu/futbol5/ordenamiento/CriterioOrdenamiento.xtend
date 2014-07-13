@@ -1,12 +1,13 @@
 package ar.edu.futbol5.ordenamiento
 
 import ar.edu.futbol5.Jugador
-import ar.edu.futbol5.Partido
 import java.util.List
 
-interface CriterioOrdenamiento {
+abstract class CriterioOrdenamiento {
 	
-	def List<Jugador> ordenar(Partido partido)
+	def ordenar(List<Jugador> jugadores) {
+		jugadores.sortBy(calcularValor).clone.reverse
+	}
 
 	def (Jugador) => Double calcularValor()
 		 

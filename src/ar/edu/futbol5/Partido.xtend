@@ -35,7 +35,7 @@ class Partido {
 		/*if (this.validarInscripcion == -1) {
 			throw new BusinessException("Hubo un error")
 		}*/
-		this.distribuirEquipos(criterioOrdenamiento.ordenar(this))
+		this.distribuirEquipos(criterioOrdenamiento.ordenar(this.inscriptos))
 		estado = new EstadoEquiposGenerados
 		//estado = "G"
 	}
@@ -81,14 +81,14 @@ class Partido {
 	}
 
 	def boolean hayAlgunJugadorQueCedaLugar() {
-		return inscriptos.exists[jugador|jugador.criterioInscripcion.dejaLugarAOtro]
+		return inscriptos.exists[jugador|jugador.dejaLugarAOtro]
 	}
 
 	def Jugador jugadorQueCedeLugar() {
 		if (!hayAlgunJugadorQueCedaLugar()) {
 			return null
 		}
-		return inscriptos.filter[jugador|jugador.criterioInscripcion.dejaLugarAOtro].get(0)
+		return inscriptos.filter[jugador|jugador.dejaLugarAOtro].get(0)
 	}
 
 	def void cerrar() {
