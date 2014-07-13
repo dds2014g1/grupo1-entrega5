@@ -5,7 +5,5 @@ class ModoEstandar implements CriterioInscripcion {
 	override leSirveElPartido() {
 		false
 	}
-
-
 		
 }

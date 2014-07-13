@@ -167,7 +167,8 @@ public class TestGenerarEquipos {
     final CriterioOrdenamiento criterioOrdenamiento = this.partido1.getCriterioOrdenamiento();
     InputOutput.<String>println("******************************************");
     InputOutput.<String>println("ordenamiento por handicap");
-    List<Jugador> _ordenar = criterioOrdenamiento.ordenar(this.partido1);
+    List<Jugador> _inscriptos = this.partido1.getInscriptos();
+    List<Jugador> _ordenar = criterioOrdenamiento.ordenar(_inscriptos);
     final Function1<Jugador,String> _function = new Function1<Jugador,String>() {
       public String apply(final Jugador jugador) {
         Double _calificacion = jugador.getCalificacion();
@@ -178,7 +179,8 @@ public class TestGenerarEquipos {
     List<String> _map = ListExtensions.<Jugador, String>map(_ordenar, _function);
     InputOutput.<List<String>>println(_map);
     ArrayList<Object> _newArrayList = CollectionLiterals.<Object>newArrayList(this.ferme, this.roly, this.pato, this.dodi, this.lechu, this.chicho, this.rodri, this.sytek, this.leo, this.mike);
-    List<Jugador> _ordenar_1 = criterioOrdenamiento.ordenar(this.partido1);
+    List<Jugador> _inscriptos_1 = this.partido1.getInscriptos();
+    List<Jugador> _ordenar_1 = criterioOrdenamiento.ordenar(_inscriptos_1);
     Assert.assertArrayEquals(((Object[])Conversions.unwrapArray(_newArrayList, Object.class)), ((Object[])Conversions.unwrapArray(_ordenar_1, Object.class)));
   }
   
@@ -189,7 +191,8 @@ public class TestGenerarEquipos {
     final CriterioOrdenamiento criterioOrdenamiento = this.partido1.getCriterioOrdenamiento();
     InputOutput.<String>println("******************************************");
     InputOutput.<String>println("ordenamiento por ultimas 2 calificaciones");
-    List<Jugador> _ordenar = criterioOrdenamiento.ordenar(this.partido1);
+    List<Jugador> _inscriptos = this.partido1.getInscriptos();
+    List<Jugador> _ordenar = criterioOrdenamiento.ordenar(_inscriptos);
     final Function1<Jugador,String> _function = new Function1<Jugador,String>() {
       public String apply(final Jugador jugador) {
         String _xblockexpression = null;
@@ -222,7 +225,8 @@ public class TestGenerarEquipos {
     List<String> _map = ListExtensions.<Jugador, String>map(_ordenar, _function);
     InputOutput.<List<String>>println(_map);
     ArrayList<Object> _newArrayList = CollectionLiterals.<Object>newArrayList(this.ferme, this.pato, this.lechu, this.roly, this.mike, this.chicho, this.dodi, this.rodri, this.sytek, this.leo);
-    List<Jugador> _ordenar_1 = criterioOrdenamiento.ordenar(this.partido1);
+    List<Jugador> _inscriptos_1 = this.partido1.getInscriptos();
+    List<Jugador> _ordenar_1 = criterioOrdenamiento.ordenar(_inscriptos_1);
     Assert.assertArrayEquals(((Object[])Conversions.unwrapArray(_newArrayList, Object.class)), ((Object[])Conversions.unwrapArray(_ordenar_1, Object.class)));
   }
   
@@ -237,10 +241,12 @@ public class TestGenerarEquipos {
     final CriterioOrdenamiento criterioOrdenamiento = this.partido1.getCriterioOrdenamiento();
     InputOutput.<String>println("******************************************");
     InputOutput.<String>println("ordenamiento por mix");
-    List<Jugador> _ordenar = criterioOrdenamiento.ordenar(this.partido1);
+    List<Jugador> _inscriptos = this.partido1.getInscriptos();
+    List<Jugador> _ordenar = criterioOrdenamiento.ordenar(_inscriptos);
     InputOutput.<List<Jugador>>println(_ordenar);
     ArrayList<Object> _newArrayList = CollectionLiterals.<Object>newArrayList(this.ferme, this.pato, this.roly, this.lechu, this.chicho, this.dodi, this.rodri, this.sytek, this.mike, this.leo);
-    List<Jugador> _ordenar_1 = criterioOrdenamiento.ordenar(this.partido1);
+    List<Jugador> _inscriptos_1 = this.partido1.getInscriptos();
+    List<Jugador> _ordenar_1 = criterioOrdenamiento.ordenar(_inscriptos_1);
     Assert.assertArrayEquals(((Object[])Conversions.unwrapArray(_newArrayList, Object.class)), ((Object[])Conversions.unwrapArray(_ordenar_1, Object.class)));
   }
   

@@ -11,4 +11,5 @@ class GeneradorDeEquipos14589Vs236710 extends GeneradorDeEquipos {
 	override boolean cumpleParaEquipo1(Jugador j, List<Jugador> jugadores) {
 		posicionesEquipo1.contains(jugadores.indexOf(j) + 1)
 	}
+
 }

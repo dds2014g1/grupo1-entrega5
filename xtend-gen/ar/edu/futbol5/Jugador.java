@@ -70,16 +70,8 @@ public class Jugador {
     this.setCriterioInscripcion(_modoSolidario);
   }
   
-  /**
-   * def boolean dejaLugarAOtro() {
-   * if (criterioInscripcion.class.equals(typeof(ModoSolidario))) {
-   * return true
-   * } else {
-   * return false
-   * }
-   * }
-   */
-  public String toString() {
-    return this.getNombre();
+  public boolean dejaLugarAOtro() {
+    CriterioInscripcion _criterioInscripcion = this.getCriterioInscripcion();
+    return _criterioInscripcion.leSirveElPartido();
   }
 }

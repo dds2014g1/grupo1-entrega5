@@ -4,7 +4,7 @@ import ar.edu.futbol5.inscripcion.CriterioInscripcion;
 
 @SuppressWarnings("all")
 public class ModoEstandar implements CriterioInscripcion {
-  public boolean dejaLugarAOtro() {
+  public boolean leSirveElPartido() {
     return false;
   }
 }

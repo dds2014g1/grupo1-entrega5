@@ -13,5 +13,5 @@ class EstadoEquiposGenerados extends Estado {
 	override void inscribir(Jugador jugador, Partido partido) {
 		this.validarInscripcion()
 	}
-	
+
 }

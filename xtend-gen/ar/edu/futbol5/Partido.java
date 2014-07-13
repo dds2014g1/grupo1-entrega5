@@ -9,7 +9,6 @@ import ar.edu.futbol5.estado.Estado;
 import ar.edu.futbol5.estado.EstadoAbierto;
 import ar.edu.futbol5.estado.EstadoCerrado;
 import ar.edu.futbol5.estado.EstadoEquiposGenerados;
-import ar.edu.futbol5.inscripcion.CriterioInscripcion;
 import ar.edu.futbol5.ordenamiento.CriterioOrdenamiento;
 import ar.edu.futbol5.ordenamiento.OrdenamientoPorHandicap;
 import java.util.ArrayList;
@@ -95,26 +94,13 @@ public class Partido {
     Estado _estado = this.getEstado();
     _estado.validarInscripcion();
     CriterioOrdenamiento _criterioOrdenamiento = this.getCriterioOrdenamiento();
-    List<Jugador> _ordenar = _criterioOrdenamiento.ordenar(this);
+    List<Jugador> _inscriptos = this.getInscriptos();
+    List<Jugador> _ordenar = _criterioOrdenamiento.ordenar(_inscriptos);
     this.distribuirEquipos(_ordenar);
     EstadoEquiposGenerados _estadoEquiposGenerados = new EstadoEquiposGenerados();
     this.setEstado(_estadoEquiposGenerados);
   }
   
-  /**
-   * def validarInscripcion() {
-   * if (inscriptos.size < 10) {
-   * return -1
-   * }
-   * if (estado.equalsIgnoreCase("A")) {
-   * return -1
-   * }
-   * if (estado.equalsIgnoreCase("G")) {
-   * return -1
-   * }
-   * return 0
-   * }
-   */
   public void distribuirEquipos(final List<Jugador> jugadores) {
     GeneradorDeEquipos _generadorDeEquipos = this.getGeneradorDeEquipos();
     final ParDeEquipos parDeEquipos = _generadorDeEquipos.generar(jugadores);
@@ -124,11 +110,6 @@ public class Partido {
     this.setEquipo2(_equipo2);
   }
   
-  /**
-   * def List<Jugador> ordenarEquipos() {
-   * criterioOrdenamiento.ordenar(this)
-   * }
-   */
   public void inscribir(final Jugador jugador) {
     Estado _estado = this.getEstado();
     _estado.inscribir(jugador, this);
@@ -144,8 +125,7 @@ public class Partido {
     List<Jugador> _inscriptos = this.getInscriptos();
     final Function1<Jugador,Boolean> _function = new Function1<Jugador,Boolean>() {
       public Boolean apply(final Jugador jugador) {
-        CriterioInscripcion _criterioInscripcion = jugador.getCriterioInscripcion();
-        return Boolean.valueOf(_criterioInscripcion.dejaLugarAOtro());
+        return Boolean.valueOf(jugador.dejaLugarAOtro());
       }
     };
     return IterableExtensions.<Jugador>exists(_inscriptos, _function);
@@ -160,8 +140,7 @@ public class Partido {
     List<Jugador> _inscriptos = this.getInscriptos();
     final Function1<Jugador,Boolean> _function = new Function1<Jugador,Boolean>() {
       public Boolean apply(final Jugador jugador) {
-        CriterioInscripcion _criterioInscripcion = jugador.getCriterioInscripcion();
-        return Boolean.valueOf(_criterioInscripcion.dejaLugarAOtro());
+        return Boolean.valueOf(jugador.dejaLugarAOtro());
       }
     };
     Iterable<Jugador> _filter = IterableExtensions.<Jugador>filter(_inscriptos, _function);

@@ -10,5 +10,5 @@ abstract class Estado {
 	def void inscribir(Jugador jugador, Partido partido) {
 		partido.inscriptos.add(jugador)
 	}
-	
+
 }

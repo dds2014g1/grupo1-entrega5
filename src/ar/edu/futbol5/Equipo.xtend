@@ -9,4 +9,5 @@ class Equipo {
 	new(List<Jugador> jugadores) {
 		this.jugadores = jugadores
 	}
+
 }

@@ -7,5 +7,5 @@ class EstadoAbierto extends Estado {
 	override void validarInscripcion() {
 		throw new BusinessException("El partido no cuenta con 10 jugadores")
 	}
-	
+
 }

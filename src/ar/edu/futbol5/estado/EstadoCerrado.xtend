@@ -16,5 +16,5 @@ class EstadoCerrado extends Estado {
 				throw new BusinessException("No hay más lugar")
 			}
 		}
-	
+
 }

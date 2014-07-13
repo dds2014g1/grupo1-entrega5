@@ -1,32 +1,21 @@
 package ar.edu.futbol5.ordenamiento;
 
 import ar.edu.futbol5.Jugador;
-import ar.edu.futbol5.Partido;
 import ar.edu.futbol5.ordenamiento.CriterioOrdenamiento;
 import java.util.ArrayList;
 import java.util.List;
-import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.DoubleExtensions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.Functions.Function2;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
-import org.eclipse.xtext.xbase.lib.ListExtensions;
 
 @SuppressWarnings("all")
-public class OrdenamientoMix implements CriterioOrdenamiento {
+public class OrdenamientoMix extends CriterioOrdenamiento {
   private List<CriterioOrdenamiento> criterios;
   
   public OrdenamientoMix() {
     ArrayList<CriterioOrdenamiento> _arrayList = new ArrayList<CriterioOrdenamiento>();
     this.criterios = _arrayList;
-  }
-  
-  public List<Jugador> ordenar(final Partido partido) {
-    List<Jugador> _inscriptos = partido.getInscriptos();
-    Function1<? super Jugador,? extends Double> _calcularValor = this.calcularValor();
-    List<Jugador> _sortBy = IterableExtensions.sortBy(_inscriptos, _calcularValor);
-    Jugador[] _clone = ((Jugador[])Conversions.unwrapArray(_sortBy, Jugador.class)).clone();
-    return ListExtensions.<Jugador>reverse(((List<Jugador>)Conversions.doWrapArray(_clone)));
   }
   
   public boolean addCriterio(final CriterioOrdenamiento criterio) {

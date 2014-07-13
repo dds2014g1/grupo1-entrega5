@@ -14,4 +14,5 @@ abstract class GeneradorDeEquipos {
 	}
 	
 	def boolean cumpleParaEquipo1(Jugador j, List<Jugador> jugadores)
+
 }
