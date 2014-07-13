@@ -3,6 +3,7 @@ package ar.edu.futbol5;
 import ar.edu.futbol5.Equipo;
 import ar.edu.futbol5.Jugador;
 import ar.edu.futbol5.Partido;
+import ar.edu.futbol5.equipos.GeneradorDeEquipos14589Vs236710;
 import ar.edu.futbol5.excepciones.BusinessException;
 import ar.edu.futbol5.ordenamiento.CriterioOrdenamiento;
 import ar.edu.futbol5.ordenamiento.OrdenamientoCalificacionUltimos2Partidos;
@@ -259,7 +260,8 @@ public class TestGenerarEquipos {
   
   @Test
   public void distribuirEquipos14589() {
-    this.partido1.setDistribucionEquipos(16);
+    GeneradorDeEquipos14589Vs236710 _generadorDeEquipos14589Vs236710 = new GeneradorDeEquipos14589Vs236710();
+    this.partido1.setGeneradorDeEquipos(_generadorDeEquipos14589Vs236710);
     this.partido1.cerrar();
     this.partido1.generarEquipos();
     ArrayList<Object> _newArrayList = CollectionLiterals.<Object>newArrayList(this.ferme, this.dodi, this.lechu, this.sytek, this.leo);
@@ -274,7 +276,8 @@ public class TestGenerarEquipos {
   
   @Test(expected = BusinessException.class)
   public void generarEquiposCuandoSeCierra() {
-    this.partido1.setDistribucionEquipos(16);
+    GeneradorDeEquipos14589Vs236710 _generadorDeEquipos14589Vs236710 = new GeneradorDeEquipos14589Vs236710();
+    this.partido1.setGeneradorDeEquipos(_generadorDeEquipos14589Vs236710);
     this.partido1.cerrar();
     this.partido1.generarEquipos();
     this.partido1.generarEquipos();

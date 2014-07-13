@@ -6,7 +6,7 @@ import ar.edu.futbol5.ordenamiento.OrdenamientoMix
 import ar.edu.futbol5.ordenamiento.OrdenamientoPorHandicap
 import org.junit.Assert
 import org.junit.Before
-import org.junit.Test
+import org.junit.Testimport ar.edu.futbol5.equipos.GeneradorDeEquipos14589Vs236710
 
 class TestGenerarEquipos {
 
@@ -142,7 +142,7 @@ class TestGenerarEquipos {
 
 	@Test
 	def void distribuirEquipos14589() {
-		partido1.distribucionEquipos = 16 // ordenamiento
+		partido1.setGeneradorDeEquipos(new GeneradorDeEquipos14589Vs236710)
 		partido1.cerrar
 		partido1.generarEquipos
 		Assert.assertArrayEquals(newArrayList(ferme, dodi, lechu, sytek, leo), partido1.equipo1.jugadores)
@@ -151,7 +151,7 @@ class TestGenerarEquipos {
 
 	@Test(expected=typeof(BusinessException))
 	def void generarEquiposCuandoSeCierra() {
-		partido1.distribucionEquipos = 16 // ordenamiento
+		partido1.setGeneradorDeEquipos(new GeneradorDeEquipos14589Vs236710)
 		partido1.cerrar
 		partido1.generarEquipos
 		partido1.generarEquipos

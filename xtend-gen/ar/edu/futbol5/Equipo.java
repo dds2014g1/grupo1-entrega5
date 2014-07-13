@@ -14,4 +14,8 @@ public class Equipo {
   public void setJugadores(final List<Jugador> jugadores) {
     this._jugadores = jugadores;
   }
+  
+  public Equipo(final List<Jugador> jugadores) {
+    this.setJugadores(jugadores);
+  }
 }

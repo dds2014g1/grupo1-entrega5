@@ -7,6 +7,9 @@ import java.util.List
 import ar.edu.futbol5.estado.Estado
 import ar.edu.futbol5.estado.EstadoAbierto
 import ar.edu.futbol5.estado.EstadoEquiposGenerados
+import ar.edu.futbol5.equipos.ParDeEquipos
+import ar.edu.futbol5.equipos.GeneradorDeEquipos
+import ar.edu.futbol5.equipos.GeneradorDeEquiposParesContraImpares
 import ar.edu.futbol5.estado.EstadoCerrado
 
 class Partido {
@@ -17,13 +20,13 @@ class Partido {
 	@Property Estado estado
 	//String estado
 	@Property CriterioOrdenamiento criterioOrdenamiento
-	@Property int distribucionEquipos // 5 es par/impar, 16 = 1,4,5,8,9 vs. 2,3,6,7,10
+	@Property GeneradorDeEquipos generadorDeEquipos
 
 	new() {
 		inscriptos = new ArrayList<Jugador>
 		estado = new EstadoAbierto
 		//estado = "A"
-		distribucionEquipos = 5 // par/impar
+		generadorDeEquipos = new GeneradorDeEquiposParesContraImpares
 		criterioOrdenamiento = new OrdenamientoPorHandicap
 	}
 
@@ -51,21 +54,9 @@ class Partido {
 	}*/
 
 	def distribuirEquipos(List<Jugador> jugadores) {
-		equipo1 = new Equipo
-		equipo2 = new Equipo
-		if (distribucionEquipos == 5) {
-			equipo1.jugadores = newArrayList(jugadores.get(0), jugadores.get(2), jugadores.get(4), jugadores.get(6),
-				jugadores.get(8))
-			equipo2.jugadores = newArrayList(jugadores.get(1), jugadores.get(3), jugadores.get(5), jugadores.get(7),
-				jugadores.get(9))
-		} else {
-
-			// distribucionEquipos == 16 que ordena de esta manera
-			equipo1.jugadores = newArrayList(jugadores.get(0), jugadores.get(3), jugadores.get(4), jugadores.get(7),
-				jugadores.get(8))
-			equipo2.jugadores = newArrayList(jugadores.get(1), jugadores.get(2), jugadores.get(5), jugadores.get(6),
-				jugadores.get(9))
-		}
+		val ParDeEquipos parDeEquipos = generadorDeEquipos.generar(jugadores)
+		equipo1 = parDeEquipos.equipo1
+		equipo2 = parDeEquipos.equipo2
 	}
 
 	/*def List<Jugador> ordenarEquipos() {
@@ -104,5 +95,4 @@ class Partido {
 		estado = new EstadoCerrado
 		//estado = "C"
 	}
-	
 }
