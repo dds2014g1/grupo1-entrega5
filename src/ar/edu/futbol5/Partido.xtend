@@ -11,6 +11,7 @@ import ar.edu.futbol5.equipos.ParDeEquipos
 import ar.edu.futbol5.equipos.GeneradorDeEquipos
 import ar.edu.futbol5.equipos.GeneradorDeEquiposParesContraImpares
 import ar.edu.futbol5.estado.EstadoCerrado
+import ar.edu.futbol5.excepciones.BusinessException
 
 class Partido {
 
@@ -41,9 +42,22 @@ class Partido {
 	}
 
 	def void inscribir(Jugador jugador) {
-		estado.inscribir(jugador, this)
-		if (inscriptos.size == 10) {
-			this.cerrar()
+		if (inscriptos.size < 10) {
+			this.inscriptos.add(jugador)
+		} else {
+			this.reemplazarPorOtroJugadro(jugador)
+		}
+	}
+
+	def void reemplazarPorOtroJugadro(Jugador jugador) {
+
+		if (this.hayAlgunJugadorQueCedaLugar()) {
+
+			this.inscriptos.remove(this.jugadorQueCedeLugar())
+			this.inscriptos.add(jugador)
+
+		} else {
+			throw new BusinessException("No hay más lugar en el partido")
 		}
 	}
 
@@ -52,10 +66,7 @@ class Partido {
 	}
 
 	def Jugador jugadorQueCedeLugar() {
-		if (!hayAlgunJugadorQueCedaLugar()) {
-			return null
-		}
-		return inscriptos.filter[jugador|jugador.dejaLugarAOtro].get(0)
+		return inscriptos.findFirst[jugador|jugador.dejaLugarAOtro]
 	}
 
 	def void cerrar() {
